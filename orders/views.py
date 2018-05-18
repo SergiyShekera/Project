@@ -1,8 +1,14 @@
-from django.shortcuts import render, render_to_response
-from orders.models import OrderItem
+from django.shortcuts import render, render_to_response, get_object_or_404
+from orders.models import OrderItem, Order
 from .forms import OrderCreateForm
 from cart.cart import Cart
+from django.contrib.admin.views.decorators import staff_member_required
 
+
+@staff_member_required
+def AdminOrderDetail(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    return render(request, 'admin/orders/order/detail.html', {'order': order})
 
 def OrderCreate(request):
 
