@@ -31,6 +31,7 @@ class Cart(object):
     # Сохранение данных в сессию
     def save(self):
         self.session[settings.CART_SESSION_ID] = self.cart
+        self.session.set_expiry(21000)
         self.session.modified = True
 
     def remove(self, product):

@@ -16,6 +16,7 @@ def CuponApply(request):
                                       valid_from__lte=now,
                                       valid_to__gte=now,
                                       active=True)
+            request.session.set_expiry(1200)
             request.session['cupon_id'] = cupon.id
         except Cupon.DoesNotExist:
             request.session['cupon_id'] = None
