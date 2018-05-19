@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('shop/', include('shop.urls', namespace='shop')),
     path('cart/', include('cart.urls', namespace='cart')),
-    path('order/', include('orders.urls', namespace='orders'))
+    path('order/', include('orders.urls', namespace='orders')),
+    path('cupons/', include('cupons.urls', namespace='cupon')),
     # path('', include('authentication.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
