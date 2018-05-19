@@ -14,7 +14,7 @@ class Order(models.Model):
     created = models.DateTimeField(verbose_name='Создан', auto_now_add=True)
     updated = models.DateTimeField(verbose_name='Обновлен', auto_now=True)
     paid = models.BooleanField(verbose_name='Оплачен', default=False)
-    cupon = models.ForeignKey(Cupon, on_delete=models.CASCADE, related_name='orders', null=True, blank=True)
+    cupon = models.ForeignKey(Cupon, on_delete=models.SET_NULL, related_name='orders', null=True, blank=True)
     discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     class Meta:
