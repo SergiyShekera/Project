@@ -16,16 +16,9 @@
     <div class="top-bl">
       <div class="container">
         <div class="cart">
-          {% with total_items=cart|length %}
-            {% if cart|length > 0 %}
-              Ваша корзина:
-              <a href="http://localhost:8080/cart/">
-                {{ total_items }} тов. {{ cart.get_total_price }}грн.
-              </a>
-            {% else %}
-              Корзина пустая {{ total_items }} тов. {{ cart.get_total_price }}грн.
-            {% endif %}
-          {% endwith %}
+         <a href="http://localhost:8080/cart/">
+              Корзина
+         </a>
         </div>
       </div>
     </div>
