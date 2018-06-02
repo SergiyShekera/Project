@@ -14,6 +14,11 @@ class Product_List_View(generics.ListAPIView):
     queryset = Product.objects.filter(available=True)
     serializer_class = Product_Serializer
 
+class Category_List_View(generics.ListAPIView):
+
+    queryset = Category.objects.all()
+    serializer_class = Category_Serializer
+
 class Product_Detail_View(APIView):
 
     queryset = Product.objects.all()
