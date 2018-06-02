@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'cart',
     'orders',
     'cupons',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -136,3 +137,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 CART_SESSION_ID = 'cart'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
+# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+#
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True

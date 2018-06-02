@@ -2,6 +2,36 @@ from django.shortcuts import render, get_object_or_404, render_to_response
 from .models import Category, Product
 from cart.forms import CartAddProductForm
 from django.template.context_processors import csrf
+from rest_framework import generics
+from .serializers import Category_Serializer
+from .serializers import Product_Serializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+
+class Product_List_View(generics.ListAPIView):
+
+    queryset = Product.objects.filter(available=True)
+    serializer_class = Product_Serializer
+
+class Product_Detail_View(APIView):
+
+    queryset = Product.objects.all()
+
+    def get(self, request, id):
+        product = get_object_or_404(Product, id=id, available=True)
+        serializer = Product_Serializer(product)
+        return Response(serializer.data)
+
+class Product_Category_List_View(APIView):
+
+    queryset = Category.objects.all()
+
+    def get(self, request, id):
+        category = get_object_or_404(Category, id=id)
+        serializer = Category_Serializer(category)
+        return Response(serializer.data)
+
 
 
 def ProductList(request, category_slug=None):
