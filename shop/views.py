@@ -62,11 +62,3 @@ def ProductDetail(request, id, slug):
     context = {'product': product, 'cart_product_form': cart_product_form}
     context.update(csrf(request))
     return render_to_response('shop/product/detail.html', context)
-
-def ProductDetail2(request, id, slug):
-
-    product = get_object_or_404(Product, id=id, slug=slug, available=True)
-    cart_product_form = CartAddProductForm()
-    context = {'product': product, 'cart_product_form': cart_product_form}
-    context.update(csrf(request))
-    return render_to_response('shop/product/detail.html', context)
