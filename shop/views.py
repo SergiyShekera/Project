@@ -62,3 +62,6 @@ def ProductDetail(request, id, slug):
     context = {'product': product, 'cart_product_form': cart_product_form}
     context.update(csrf(request))
     return render_to_response('shop/product/detail.html', context)
+
+def Shop_main(request):
+    return render_to_response('Shop-main.html')
