@@ -2,16 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from shop.models import Product
 from .cart import Cart
-from .forms import CartAddProductForm
-from cupons.forms import CuponApllyForm
+from .forms import Cart_Add_Product_Form
+from cupons.forms import Cupon_Aplly_Form
 
 
 
 @require_POST
-def CartAdd(request, product_id):
+def Cart_Add(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
-    form = CartAddProductForm(request.POST)
+    form = Cart_Add_Product_Form(request.POST)
 
     if form.is_valid():
         cd = form.cleaned_data
@@ -20,21 +20,21 @@ def CartAdd(request, product_id):
 
     return redirect('cart:CartDetail')
 
-def CartRemove(request, product_id):
+def Cart_Remove(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     cart.remove(product)
     return redirect('cart:CartDetail')
 
-def CartDetail(request):
+def Cart_Detail(request):
     cart = Cart(request)
     for item in cart:
-        item['update_quantity_form'] = CartAddProductForm(
+        item['update_quantity_form'] = Cart_Add_Product_Form(
                                         initial={
                                             'quantity': item['quantity'],
                                             'update': True
                                         })
-    cupon_apply_form = CuponApllyForm()
+    cupon_apply_form = Cupon_Aplly_Form()
     return render(request, 'cart/detail.html',
                  {'cart': cart, 'cupon_apply_form': cupon_apply_form})
 

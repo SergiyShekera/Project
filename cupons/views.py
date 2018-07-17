@@ -2,13 +2,13 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 from .models import Cupon
-from .forms import CuponApllyForm
+from .forms import Cupon_Aplly_Form
 
 
 @require_POST
-def CuponApply(request):
+def Cupon_Apply(request):
     now = timezone.now()
-    form = CuponApllyForm(request.POST)
+    form = Cupon_Aplly_Form(request.POST)
     if form.is_valid():
         code = form.cleaned_data['code']
         try:

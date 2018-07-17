@@ -1,8 +1,8 @@
 from django.urls import path
-from cupons.views import CuponApply
+from cupons.views import Cupon_Apply
 
 app_name='cupons'
 
 urlpatterns = [
-    path('apply', CuponApply, name='apply')
+    path('apply', Cupon_Apply, name='apply')
 ]

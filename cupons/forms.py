@@ -1,4 +1,4 @@
 from django import forms
 
-class CuponApllyForm(forms.Form):
+class Cupon_Aplly_Form(forms.Form):
     code = forms.CharField()

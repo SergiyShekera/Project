@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, render_to_response
 from .models import Category, Product
-from cart.forms import CartAddProductForm
+from cart.forms import Cart_Add_Product_Form
 from django.template.context_processors import csrf
 from rest_framework import generics
 from .serializers import Category_Serializer
@@ -39,7 +39,7 @@ class Product_Category_List_View(APIView):
 
 
 
-def ProductList(request, category_slug=None):
+def Product_List(request, category_slug=None):
 
     category = None
     categories = Category.objects.all()
@@ -55,10 +55,10 @@ def ProductList(request, category_slug=None):
                   )
 
 
-def ProductDetail(request, id, slug):
+def Product_Detail(request, id, slug):
 
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
-    cart_product_form = CartAddProductForm()
+    cart_product_form = Cart_Add_Product_Form()
     context = {'product': product, 'cart_product_form': cart_product_form}
     context.update(csrf(request))
     return render_to_response('shop/product/detail.html', context)

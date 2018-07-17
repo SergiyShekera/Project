@@ -15,7 +15,6 @@ var the_url_prod_list = 'http://localhost:8080/shop/api/prod-list';
 var client = new HttpClient();
     client.get(the_url_prod_list, function  (response) {
         var response1 = JSON.parse(response);
-        // alert(response);
         var prod = [];
         for (var key in response1) {
 
@@ -30,16 +29,14 @@ document.getElementById("prod_list").innerHTML = prod.join('');
     });
 
 
-
 var the_url_cat_list = 'http://localhost:8080/shop/api/prod-category-list';
 var client = new HttpClient();
     client.get(the_url_cat_list, function(response) {
         var response1 = JSON.parse(response);
-        // alert(response);
         var cat =[];
         for (var key in response1) {
 
-            cat.push("<a href = 'http://localhost:8080/shop/api/prod-detail/" + response1[key].id + "'" +
+            cat.push("<a href = 'http://localhost:8080/shop/api/prod-category-list-by/" + response1[key].id + "'" +
                 "<p>" + response1[key].name  + "</p>" + "</a>");
             };
 
