@@ -3,12 +3,29 @@ from orders.models import OrderItem, Order
 from .forms import Order_Create_Form
 from cart.cart import Cart
 from django.contrib.admin.views.decorators import staff_member_required
-
+from django.core.mail import send_mail
 
 @staff_member_required
 def Admin_Order_Detail(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     return render(request, 'admin/orders/order/detail.html', {'order': order})
+
+def Mail(order_id):
+
+    order = Order.objects.get(id=order_id)
+    subject = 'Заказ c номером {}'.format(order.id)
+    message = 'Дорогой, {}, вы успешно сделали заказ.\
+               Номер вашего заказа {}'.format(order.first_name, order.id)
+
+    mail_send = send_mail(subject, message, 'admin@myshop.ua', [order.email])
+
+    subject_2 = 'Поступил новый заказ {}'.format(order.id)
+    message_2 = 'Новый заказ на суму {}'.format(order.get_total_cost)
+    admin_email = 'admin_email@com.ua'
+
+    mail_send_2 = send_mail(subject_2, message_2, 'admin@myshop.ua', [admin_email])
+
+    return (mail_send, mail_send_2)
 
 def Order_Create(request):
 
@@ -26,6 +43,9 @@ def Order_Create(request):
                                          price=item['price'],
                                          quantity=item['quantity'])
             cart.clear()
+
+            Mail(order.id)
+
             return render_to_response( 'orders/order/created.html', {'order': order})
     else:
         form = Order_Create_Form()
