@@ -2,8 +2,38 @@ from django.shortcuts import render, render_to_response, get_object_or_404
 from orders.models import OrderItem, Order
 from .forms import Order_Create_Form
 from cart.cart import Cart
+from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import permissions
+from .serializers import Order_Serializer
+# from .serializers import Order_Item_Serializer
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.mail import send_mail
+
+
+class Order_List_View(generics.ListAPIView):
+
+    queryset = Order.objects.all()
+    serializer_class = Order_Serializer
+
+
+class Order_Create_View(APIView):
+
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+
+        order = Order_Serializer(data=request.data)
+
+        if order.is_valid():
+
+            order.save
+
+            return Response({"status": "Create"})
+
+
+
 
 @staff_member_required
 def Admin_Order_Detail(request, order_id):
@@ -30,6 +60,7 @@ def Mail(order_id):
 def Order_Create(request):
 
     cart = Cart(request)
+
     if request.method == 'POST':
         form = Order_Create_Form(request.POST)
         if form.is_valid():
@@ -47,6 +78,7 @@ def Order_Create(request):
             Mail(order.id)
 
             return render_to_response( 'orders/order/created.html', {'order': order})
+
     else:
         form = Order_Create_Form()
         return render(request, 'orders/order/create.html', {'cart': cart,

@@ -7,12 +7,12 @@ import csv
 import datetime
 
 
-def OrderDetail(obj):
+def Order_Detail(obj):
     return format_html('<a href="{}">Посмотреть</a>'.format(
         reverse('orders:AdminOrderDetail', args=[obj.id])
     ))
 
-def ExportToCSV(modeladmin, request, queryset):
+def Export_To_CSV(modeladmin, request, queryset):
     opts = modeladmin.model._meta
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; \
@@ -34,15 +34,15 @@ def ExportToCSV(modeladmin, request, queryset):
     return response
     ExportToCSV.short_description = 'Export CSV'
 
-class OrderItemInline(admin.TabularInline):
+class Order_Item_In_line(admin.TabularInline):
     model = OrderItem
     raw_id_field = ['product']
 
-class OrderAdmin(admin.ModelAdmin):
+class Order_Admin(admin.ModelAdmin):
     list_display = ['id', 'first_name', 'last_name', 'email', 'address',
-                    'postal_code', 'city', 'paid', 'created', 'updated', OrderDetail]
+                    'postal_code', 'city', 'paid', 'created', 'updated', Order_Detail]
     list_filter = ['paid', 'created', 'updated']
-    inlines = [OrderItemInline]
-    actions = [ExportToCSV]
+    inlines = [Order_Item_In_line]
+    actions = [Export_To_CSV]
 
-admin.site.register(Order, OrderAdmin)
+admin.site.register(Order, Order_Admin)
