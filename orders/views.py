@@ -18,19 +18,19 @@ class Order_List_View(generics.ListAPIView):
     serializer_class = Order_Serializer
 
 
-class Order_Create_View(APIView):
-
-    permission_classes = [permissions.AllowAny]
-
-    def post(self, request):
-
-        order = Order_Serializer(data=request.data)
-
-        if order.is_valid():
-
-            order.save
-
-            return Response({"status": "Create"})
+# class Order_Create_View(APIView):
+#
+#     permission_classes = [permissions.AllowAny]
+#
+#     def post(self, request):
+#
+#         order = Order_Serializer(data=request.data)
+#
+#         if order.is_valid():
+#
+#             order.save
+#
+#             return Response({"status": "Create"})
 
 
 

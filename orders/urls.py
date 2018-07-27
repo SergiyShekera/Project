@@ -1,7 +1,7 @@
 from django.urls import path
 from orders.views import Order_Create, Admin_Order_Detail
 from orders.views import Order_List_View
-from orders.views import Order_Create_View
+# from orders.views import Order_Create_View
 
 app_name='orders'
 
