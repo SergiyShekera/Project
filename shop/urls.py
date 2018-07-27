@@ -2,6 +2,7 @@ from django.urls import path
 from shop.views import Product_List, Product_Detail
 from shop.views import Product_List_View, Product_Detail_View
 from shop.views import Product_Category_List_View, Category_List_View, Shop_main
+from shop.views import Category_Create_View
 
 
 app_name='shop'
@@ -12,6 +13,8 @@ urlpatterns = [
     path('api/prod-detail/<int:id>/', Product_Detail_View.as_view()),
     path('api/prod-category-list', Category_List_View.as_view()),
     path('api/prod-category-list-by/<int:id>/', Product_Category_List_View.as_view()),
+
+    path('api/prod-category-add', Category_Create_View.as_view()),
 
     path('', Product_List, name='ProductList' ),
     # path('', Shop_main, name='ProductList' ),

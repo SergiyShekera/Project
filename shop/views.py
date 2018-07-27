@@ -3,10 +3,11 @@ from .models import Category, Product
 from cart.forms import Cart_Add_Product_Form
 from django.template.context_processors import csrf
 from rest_framework import generics
-from .serializers import Category_Serializer
+from .serializers import Category_Serializer, Category_Create_Serializer
 from .serializers import Product_Serializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import permissions
 
 
 class Product_List_View(generics.ListAPIView):
@@ -37,6 +38,20 @@ class Product_Category_List_View(APIView):
         serializer = Category_Serializer(category)
         return Response(serializer.data)
 
+
+class Category_Create_View(APIView):
+
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+
+        Cat = Category_Create_Serializer(data=request.data)
+
+        if Cat.is_valid():
+
+            Cat.save()
+
+            return Response({"status": "Create"})
 
 
 def Product_List(request, category_slug=None):

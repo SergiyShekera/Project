@@ -10,6 +10,12 @@ class Category_Serializer(serializers.ModelSerializer):
         model = Category
         fields = ('id', 'name', 'slug')
 
+class Category_Create_Serializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = ('name', 'slug')
+
 class Product_Serializer(serializers.ModelSerializer):
 
     class Meta:
